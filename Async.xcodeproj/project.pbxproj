@@ -14,6 +14,7 @@
 		34765A291AFA84D1005C1A99 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 34765A281AFA84D1005C1A99 /* Images.xcassets */; };
 		34765A2C1AFA84D1005C1A99 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 34765A2A1AFA84D1005C1A99 /* LaunchScreen.xib */; };
 		34765A381AFA84D1005C1A99 /* AsyncTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 34765A371AFA84D1005C1A99 /* AsyncTests.m */; };
+		34765A431AFA84FC005C1A99 /* Async.m in Sources */ = {isa = PBXBuildFile; fileRef = 34765A421AFA84FC005C1A99 /* Async.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,8 @@
 		34765A311AFA84D1005C1A99 /* AsyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		34765A361AFA84D1005C1A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34765A371AFA84D1005C1A99 /* AsyncTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncTests.m; sourceTree = "<group>"; };
+		34765A411AFA84FC005C1A99 /* Async.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Async.h; sourceTree = "<group>"; };
+		34765A421AFA84FC005C1A99 /* Async.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Async.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,6 +84,8 @@
 		34765A1A1AFA84D1005C1A99 /* Async */ = {
 			isa = PBXGroup;
 			children = (
+				34765A411AFA84FC005C1A99 /* Async.h */,
+				34765A421AFA84FC005C1A99 /* Async.m */,
 				34765A1F1AFA84D1005C1A99 /* AppDelegate.h */,
 				34765A201AFA84D1005C1A99 /* AppDelegate.m */,
 				34765A221AFA84D1005C1A99 /* ViewController.h */,
@@ -219,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				34765A431AFA84FC005C1A99 /* Async.m in Sources */,
 				34765A241AFA84D1005C1A99 /* ViewController.m in Sources */,
 				34765A211AFA84D1005C1A99 /* AppDelegate.m in Sources */,
 				34765A1E1AFA84D1005C1A99 /* main.m in Sources */,
