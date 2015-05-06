@@ -13,6 +13,4 @@
 +(void)waterfall:(NSArray*)calls error:(void (^)())error success:(void (^)())success;
 +(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done;
 
-+(void)runtest;
-
 @end

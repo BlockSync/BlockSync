@@ -57,47 +57,4 @@
     }
 }
 
-+(void)runtest {
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        [BlockSync forEach:@[@"1a", @"2b", @"3c", @"4d"] call:^(NSString* thing, void (^insideCB)()){
-            NSLog(@"%@", thing);
-            insideCB(nil);
-        }
-        error:^(NSError* err, NSString* failedObject){
-            NSLog(@"Error %@ %@", err, failedObject);
-        }
-        done:^(){
-            NSLog(@"Success in forEach");
-        }];
-    });
-    
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0ul), ^{
-        [BlockSync waterfall:@[
-            ^(void (^insideCB)(id failure)){
-                NSLog(@"1");
-                insideCB(nil);
-            },
-            ^(void (^insideCB)(id failure)){
-                NSLog(@"2");
-                insideCB(nil);
-            },
-            ^(void (^insideCB)(id failure)){
-                NSLog(@"3");
-                insideCB(nil);
-            },
-            ^(void (^insideCB)(id failure)){
-                NSLog(@"4");
-                insideCB(nil);
-            }
-        ]
-        error:^(NSError* err){
-           NSLog(@"Error");
-        }
-        success:^(){
-            NSLog(@"Success in waterfall");
-        }];
-    });
-}
-
 @end

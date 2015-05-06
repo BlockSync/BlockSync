@@ -14,11 +14,11 @@
 		<string>https://github.com/RyanCopley/BlockSync.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>Async.xcodeproj</string>
+	<string>Example/Async.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>A2D1D4768E0E9F74BAD0854CE8F72E6C1B8DACD4</key>
-		<string>../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/RyanCopley/BlockSync.git</string>
