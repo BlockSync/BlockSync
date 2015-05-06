@@ -100,6 +100,41 @@
     XCTAssertEqual(i, 15, @"We should have called all 4 blocks");
 }
 
+- (void)testSuccessfulWaterfallWithoutError {
+    __block unsigned int i = 0;
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
+
+    [BlockSync waterfall:@[
+        ^(void (^insideCB)(id failure)){
+            i++;
+            insideCB(nil);
+        },
+        ^(void (^insideCB)(id failure)){
+            i+=2;
+            insideCB([NSError new]);
+            [expectation fulfill];
+        },
+        ^(void (^insideCB)(id failure)){
+            i+=4;
+            insideCB(nil);
+        },
+        ^(void (^insideCB)(id failure)){
+            i+=8;
+            insideCB(nil);
+            [expectation fulfill];
+        }
+    ]
+    error:nil
+    success:nil];
+    
+    [self waitForExpectationsWithTimeout:1.0f handler:^(NSError* err){
+        if (err){
+            XCTAssert(NO, @"We should have fulfilled.");
+        }
+    }];
+    XCTAssertEqual(i, 3, @"We should have called all 2 blocks, then errored");
+}
+
 - (void)testErroredWaterfall {
     __block int i = 0;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
