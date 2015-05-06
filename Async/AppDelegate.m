@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "Async.h"
+#import "BlockSync.h"
 
 @interface AppDelegate ()
 
@@ -18,7 +18,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    [Async runtest];
+    [BlockSync runtest];
     
     return YES;
 }
