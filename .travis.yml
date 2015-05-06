@@ -1,7 +1,6 @@
 language: objective-c
 xcode_project: Example/Async.xcodeproj
 xcode_scheme: AsyncTests
-before_script: ./before_test.sh
 script: ./test.sh
 after_success:
   ./Example/XcodeCoverage/getcov -o .
