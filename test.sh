@@ -1,3 +1,3 @@
 #!/bin/sh
 set -e
-coveralls push;
+xctool -project Example/Async.xcodeproj -scheme AsyncTests build test -sdk iphonesimulator
