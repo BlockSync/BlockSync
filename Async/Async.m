@@ -36,71 +36,68 @@
 }
 
 
-+(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)())error success:(void (^)())success {
-    id obj = [array firstObject];
-    if (!obj){
-        if (success){
-            return success();
-        }else{
-            return;
++(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error success:(void (^)())success {
+    
+    __block NSUInteger i = 0;
+    __block NSUInteger max = array.count;
+    void (^done)() = ^void() {
+        i++;
+        if (i >= max){
+            success();
         }
-    }
+    };
     
-    NSMutableArray* mutableObjs = [array mutableCopy];
-    [mutableObjs removeObject:obj];
-    array = [NSArray arrayWithArray:mutableObjs];
-    mutableObjs = nil;
-    
-    eachCall(obj, ^(id err){
-        if (!err){
-            [Async forEach:array call:eachCall error:error success:success];
-        }else{
-            if (error){
-                error(err);
+    for (id obj in array) {
+        eachCall(obj, ^(id err){
+            if (!err){
+                done();
+            }else{
+                if (error){
+                    error(err, obj);
+                }
             }
-        }
-    });
-    
+        });
+    }
 }
 
 +(void)runtest {
     
     [Async forEach:@[@"1", @"2", @"3", @"4"] call:^(NSString* thing, void (^insideCB)()){
         NSLog(@"%@", thing);
-        insideCB();
+        insideCB(nil);
     }
-    error:^(NSError* err){
-        NSLog(@"Error");
+    error:^(NSError* err, NSString* failedObject){
+        NSLog(@"Error %@ %@", err, failedObject);
     }
     success:^(){
         NSLog(@"Success");
     }];
     
-    
-    [Async waterfall:@[
-        ^(void (^insideCB)(id failure)){
-            NSLog(@"1");
-            insideCB(nil);
-        },
-        ^(void (^insideCB)(id failure)){
-            NSLog(@"2");
-            insideCB(nil);
-        },
-        ^(void (^insideCB)(id failure)){
-            NSLog(@"3");
-            insideCB(nil);
-        },
-        ^(void (^insideCB)(id failure)){
-            NSLog(@"4");
-            insideCB(nil);
-        }
-    ]
-    error:^(NSError* err){
-       NSLog(@"Error");
-    }
-    success:^(){
-        NSLog(@"Success");
-    }];
+//    
+//    [Async waterfall:@[
+//        ^(void (^insideCB)(id failure)){
+//            NSLog(@"1");
+//            insideCB(nil);
+//        },
+//        ^(void (^insideCB)(id failure)){
+//            NSLog(@"2");
+//            insideCB(nil);
+//        },
+//        ^(void (^insideCB)(id failure)){
+//            NSLog(@"3");
+//            insideCB(nil);
+//        },
+//        ^(void (^insideCB)(id failure)){
+//            NSLog(@"4");
+//            insideCB(nil);
+//        }
+//    ]
+//    error:^(NSError* err){
+//       NSLog(@"Error");
+//    }
+//    success:^(){
+//        NSLog(@"Success");
+//    }];
 }
 
 @end
