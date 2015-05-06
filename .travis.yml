@@ -2,4 +2,5 @@ language: objective-c
 xcode_project: Example/Async.xcproj
 xcode_scheme: AsyncTests
 after_success:
-  - coveralls
+  ./Example/XcodeCoverage/getcov -o .
+  coveralls
