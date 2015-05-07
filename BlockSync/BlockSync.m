@@ -19,6 +19,9 @@
             return;
         }
     }
+    if (0){
+        NSLog(@"Lulz");
+    }
     
     NSMutableArray* mutableCalls = [calls mutableCopy];
     [mutableCalls removeObject:callback];
