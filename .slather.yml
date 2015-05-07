@@ -1,5 +1,6 @@
 coverage_service: coveralls
 xcodeproj: Example/Async.xcodeproj
+source_directory: ./BlockSync/*
 ignore:
   - Example/*
 
