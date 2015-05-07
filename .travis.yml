@@ -3,7 +3,7 @@ xcode_project: Example/Async.xcodeproj
 xcode_scheme: AsyncTests
 
 install:
-  - bundle install --without=documentation
+    - gem install slather --no-rdoc --no-ri --no-document --quiet
 script: ./test.sh
 after_success:
   - cd $TRAVIS_BUILD_DIR && slather
