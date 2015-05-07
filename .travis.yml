@@ -3,5 +3,4 @@ xcode_project: Example/Async.xcodeproj
 xcode_scheme: AsyncTests
 script: ./test.sh
 after_success:
-	coveralls;
-	coveralls push;
+   ./coveralls.sh
