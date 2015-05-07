@@ -465,7 +465,6 @@
 		};
 		34765A3C1AFA84D1005C1A99 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 343F7A1D1AFAB930005F1A87 /* XcodeCoverage.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Async/Info.plist;
