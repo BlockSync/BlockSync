@@ -35,10 +35,6 @@
     });
 }
 
--(void)doNothing {
-    NSLog(@"NOTHING");
-}
-
 +(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
     
     __block NSUInteger i = 0;
@@ -59,5 +55,41 @@
         });
     }
 }
+
++(void)forEach:(NSArray*)array concurrentLimit: (int)concurrentLimit call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
+    
+    NSMutableArray* tasks = [array mutableCopy];
+    __block BOOL hasFinished = NO;
+    
+    __block void (^startTask)() = nil;
+    __weak __block void (^weaklyStartTask)() = nil;
+    
+    startTask = ^void(){
+        __block void (^stronglyStartTask)() = weaklyStartTask;
+        id obj = [tasks firstObject];
+        if (!obj){
+            if (!hasFinished){
+                hasFinished = YES;
+                return done();
+            }
+        }else{
+            [tasks removeObject:obj];
+            eachCall(obj, ^(id err){
+                stronglyStartTask();
+                if (err){
+                    if (error){
+                        error(err, obj);
+                    }
+                }
+            });
+        }
+    };
+    weaklyStartTask = startTask;
+    
+    for (int j=0;j<concurrentLimit;j++){
+        startTask();
+    }
+}
+
 
 @end
