@@ -58,7 +58,7 @@
 
 +(void)forEach:(NSArray*)array concurrentLimit: (int)concurrentLimit call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
     
-    NSMutableArray* tasks = [array mutableCopy];
+    __block int i = 0;
     __block BOOL hasFinished = NO;
     
     __block void (^startTask)() = nil;
@@ -66,14 +66,21 @@
     
     startTask = ^void(){
         __block void (^stronglyStartTask)() = weaklyStartTask;
-        id obj = [tasks firstObject];
+        
+        id obj = nil;
+        
+        if (i >= 0 && i < array.count){
+            obj = [array objectAtIndex:i];
+        }
+        
+        i++;
+        
         if (!obj){
             if (!hasFinished){
                 hasFinished = YES;
                 return done();
             }
         }else{
-            [tasks removeObject:obj];
             eachCall(obj, ^(id err){
                 stronglyStartTask();
                 if (err){
@@ -89,6 +96,7 @@
     for (int j=0;j<concurrentLimit;j++){
         startTask();
     }
+
 }
 
 
