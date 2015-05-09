@@ -57,24 +57,16 @@
 }
 
 +(void)forEach:(NSArray*)array concurrentLimit: (int)concurrentLimit call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
-    
     __block int i = 0;
     __block BOOL hasFinished = NO;
-    
-    __block void (^startTask)() = nil;
     __weak __block void (^weaklyStartTask)() = nil;
-    
-    startTask = ^void(){
+     __block void (^startTask)() = ^void(){
         __block void (^stronglyStartTask)() = weaklyStartTask;
-        
         id obj = nil;
-        
         if (i >= 0 && i < array.count){
             obj = [array objectAtIndex:i];
         }
-        
         i++;
-        
         if (!obj){
             if (!hasFinished){
                 hasFinished = YES;
@@ -91,12 +83,13 @@
             });
         }
     };
+    //We need to weakly reference the block, then re-capture it strongly inside the block.
     weaklyStartTask = startTask;
     
+    //Spin up task runners
     for (int j=0;j<concurrentLimit;j++){
         startTask();
     }
-
 }
 
 
