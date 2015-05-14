@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "BlockSync.h"
+#import "BSBlockSync.h"
 
 @interface AppDelegate ()
 

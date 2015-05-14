@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "BlockSync.h"
+#import "BSBlockSync.h"
 
 @interface AsyncWaterfallTests : XCTestCase
 
@@ -30,7 +30,7 @@
     __block unsigned int i = 0;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
 
-    [BlockSync waterfall:@[
+    [BSBlockSync waterfall:@[
         ^(void (^insideCB)(id failure)){
             i++;
             insideCB(nil);
@@ -68,7 +68,7 @@
     __block unsigned int i = 0;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
 
-    [BlockSync waterfall:@[
+    [BSBlockSync waterfall:@[
         ^(void (^insideCB)(id failure)){
             i++;
             insideCB(nil);
@@ -104,7 +104,7 @@
     __block unsigned int i = 0;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
 
-    [BlockSync waterfall:@[
+    [BSBlockSync waterfall:@[
         ^(void (^insideCB)(id failure)){
             i++;
             insideCB(nil);
@@ -139,7 +139,7 @@
     __block int i = 0;
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
 
-    [BlockSync waterfall:@[
+    [BSBlockSync waterfall:@[
         ^(void (^insideCB)(id failure)){
             i++;
             insideCB(nil);

@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		343F79DE1AFAB8CA005F1A87 /* BlockSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F79DD1AFAB8CA005F1A87 /* BlockSync.m */; };
+		342181701B043CDE00C171D1 /* BSIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421816F1B043CDE00C171D1 /* BSIterator.m */; };
+		343F79DE1AFAB8CA005F1A87 /* BSBlockSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */; };
 		343F7A321AFABBEE005F1A87 /* AsyncWaterfallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F7A311AFABBEE005F1A87 /* AsyncWaterfallTests.m */; };
 		34765A1E1AFA84D1005C1A99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34765A1D1AFA84D1005C1A99 /* main.m */; };
 		34765A211AFA84D1005C1A99 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 34765A201AFA84D1005C1A99 /* AppDelegate.m */; };
@@ -28,27 +29,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		343F79DC1AFAB8CA005F1A87 /* BlockSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlockSync.h; sourceTree = "<group>"; };
-		343F79DD1AFAB8CA005F1A87 /* BlockSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BlockSync.m; sourceTree = "<group>"; };
-		343F7A091AFAB930005F1A87 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		343F7A0A1AFAB930005F1A87 /* CHANGES.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGES.md; sourceTree = "<group>"; };
-		343F7A0B1AFAB930005F1A87 /* cleancov */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = cleancov; sourceTree = "<group>"; };
-		343F7A0C1AFAB930005F1A87 /* envcov.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = envcov.sh; sourceTree = "<group>"; };
-		343F7A0D1AFAB930005F1A87 /* exportenv.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = exportenv.sh; sourceTree = "<group>"; };
-		343F7A0E1AFAB930005F1A87 /* getcov */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = getcov; sourceTree = "<group>"; };
-		343F7A111AFAB930005F1A87 /* gendesc */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = gendesc; sourceTree = "<group>"; };
-		343F7A121AFAB930005F1A87 /* genhtml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = genhtml; sourceTree = "<group>"; };
-		343F7A131AFAB930005F1A87 /* geninfo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = geninfo; sourceTree = "<group>"; };
-		343F7A141AFAB930005F1A87 /* genpng */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = genpng; sourceTree = "<group>"; };
-		343F7A151AFAB930005F1A87 /* lcov */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.perl; path = lcov; sourceTree = "<group>"; };
-		343F7A161AFAB930005F1A87 /* COPYING */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = COPYING; sourceTree = "<group>"; };
-		343F7A171AFAB930005F1A87 /* lcov_cobertura.py */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.python; path = lcov_cobertura.py; sourceTree = "<group>"; };
-		343F7A181AFAB930005F1A87 /* LICENSE.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE.txt; sourceTree = "<group>"; };
-		343F7A191AFAB930005F1A87 /* llvm-cov-wrapper.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = "llvm-cov-wrapper.sh"; sourceTree = "<group>"; };
-		343F7A1A1AFAB930005F1A87 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		343F7A1B1AFAB930005F1A87 /* run_code_coverage_post.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = run_code_coverage_post.sh; sourceTree = "<group>"; };
-		343F7A1C1AFAB930005F1A87 /* XcodeCoverage.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = XcodeCoverage.podspec; sourceTree = "<group>"; };
-		343F7A1D1AFAB930005F1A87 /* XcodeCoverage.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = XcodeCoverage.xcconfig; sourceTree = "<group>"; };
+		3421816E1B043CDE00C171D1 /* BSIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSIterator.h; sourceTree = "<group>"; };
+		3421816F1B043CDE00C171D1 /* BSIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSIterator.m; sourceTree = "<group>"; };
+		343F79DC1AFAB8CA005F1A87 /* BSBlockSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBlockSync.h; sourceTree = "<group>"; };
+		343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBlockSync.m; sourceTree = "<group>"; };
 		343F7A311AFABBEE005F1A87 /* AsyncWaterfallTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncWaterfallTests.m; sourceTree = "<group>"; };
 		34765A181AFA84D1005C1A99 /* Async.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Async.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		34765A1C1AFA84D1005C1A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -59,10 +43,7 @@
 		34765A281AFA84D1005C1A99 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		34765A2B1AFA84D1005C1A99 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		34765A311AFA84D1005C1A99 /* AsyncTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AsyncTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		34765A361AFA84D1005C1A99 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		34765A371AFA84D1005C1A99 /* AsyncForEachTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AsyncForEachTests.m; sourceTree = "<group>"; };
-		3E0F77A066C4335D949AC39B /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		AB12A36CECF1F71B9764A6C0 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		FC670064D335676840A70778 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -87,64 +68,22 @@
 		343F79DB1AFAB8CA005F1A87 /* BlockSync */ = {
 			isa = PBXGroup;
 			children = (
-				343F79DC1AFAB8CA005F1A87 /* BlockSync.h */,
-				343F79DD1AFAB8CA005F1A87 /* BlockSync.m */,
+				343F79DC1AFAB8CA005F1A87 /* BSBlockSync.h */,
+				343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */,
+				3421816E1B043CDE00C171D1 /* BSIterator.h */,
+				3421816F1B043CDE00C171D1 /* BSIterator.m */,
 			);
 			name = BlockSync;
 			path = ../BlockSync;
-			sourceTree = "<group>";
-		};
-		343F7A081AFAB930005F1A87 /* XcodeCoverage */ = {
-			isa = PBXGroup;
-			children = (
-				343F7A091AFAB930005F1A87 /* .gitignore */,
-				343F7A0A1AFAB930005F1A87 /* CHANGES.md */,
-				343F7A0B1AFAB930005F1A87 /* cleancov */,
-				343F7A0C1AFAB930005F1A87 /* envcov.sh */,
-				343F7A0D1AFAB930005F1A87 /* exportenv.sh */,
-				343F7A0E1AFAB930005F1A87 /* getcov */,
-				343F7A0F1AFAB930005F1A87 /* lcov-1.11 */,
-				343F7A171AFAB930005F1A87 /* lcov_cobertura.py */,
-				343F7A181AFAB930005F1A87 /* LICENSE.txt */,
-				343F7A191AFAB930005F1A87 /* llvm-cov-wrapper.sh */,
-				343F7A1A1AFAB930005F1A87 /* README.md */,
-				343F7A1B1AFAB930005F1A87 /* run_code_coverage_post.sh */,
-				343F7A1C1AFAB930005F1A87 /* XcodeCoverage.podspec */,
-				343F7A1D1AFAB930005F1A87 /* XcodeCoverage.xcconfig */,
-			);
-			path = XcodeCoverage;
-			sourceTree = "<group>";
-		};
-		343F7A0F1AFAB930005F1A87 /* lcov-1.11 */ = {
-			isa = PBXGroup;
-			children = (
-				343F7A101AFAB930005F1A87 /* bin */,
-				343F7A161AFAB930005F1A87 /* COPYING */,
-			);
-			path = "lcov-1.11";
-			sourceTree = "<group>";
-		};
-		343F7A101AFAB930005F1A87 /* bin */ = {
-			isa = PBXGroup;
-			children = (
-				343F7A111AFAB930005F1A87 /* gendesc */,
-				343F7A121AFAB930005F1A87 /* genhtml */,
-				343F7A131AFAB930005F1A87 /* geninfo */,
-				343F7A141AFAB930005F1A87 /* genpng */,
-				343F7A151AFAB930005F1A87 /* lcov */,
-			);
-			path = bin;
 			sourceTree = "<group>";
 		};
 		34765A0F1AFA84D1005C1A99 = {
 			isa = PBXGroup;
 			children = (
 				343F79DB1AFAB8CA005F1A87 /* BlockSync */,
-				343F7A081AFAB930005F1A87 /* XcodeCoverage */,
-				34765A1A1AFA84D1005C1A99 /* Async */,
 				34765A341AFA84D1005C1A99 /* AsyncTests */,
+				34765A1A1AFA84D1005C1A99 /* Async */,
 				34765A191AFA84D1005C1A99 /* Products */,
-				FE300EB40C920F270FB07839 /* Pods */,
 				3637CF4987E71090AF5A0FD2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
@@ -164,8 +103,8 @@
 				34765A1F1AFA84D1005C1A99 /* AppDelegate.h */,
 				34765A201AFA84D1005C1A99 /* AppDelegate.m */,
 				34765A251AFA84D1005C1A99 /* Main.storyboard */,
-				34765A281AFA84D1005C1A99 /* Images.xcassets */,
 				34765A2A1AFA84D1005C1A99 /* LaunchScreen.xib */,
+				34765A281AFA84D1005C1A99 /* Images.xcassets */,
 				34765A1B1AFA84D1005C1A99 /* Supporting Files */,
 			);
 			path = Async;
@@ -185,17 +124,8 @@
 			children = (
 				34765A371AFA84D1005C1A99 /* AsyncForEachTests.m */,
 				343F7A311AFABBEE005F1A87 /* AsyncWaterfallTests.m */,
-				34765A351AFA84D1005C1A99 /* Supporting Files */,
 			);
 			path = AsyncTests;
-			sourceTree = "<group>";
-		};
-		34765A351AFA84D1005C1A99 /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				34765A361AFA84D1005C1A99 /* Info.plist */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3637CF4987E71090AF5A0FD2 /* Frameworks */ = {
@@ -204,15 +134,6 @@
 				FC670064D335676840A70778 /* libPods.a */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		FE300EB40C920F270FB07839 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				AB12A36CECF1F71B9764A6C0 /* Pods.debug.xcconfig */,
-				3E0F77A066C4335D949AC39B /* Pods.release.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,7 +254,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				34765A211AFA84D1005C1A99 /* AppDelegate.m in Sources */,
-				343F79DE1AFAB8CA005F1A87 /* BlockSync.m in Sources */,
+				343F79DE1AFAB8CA005F1A87 /* BSBlockSync.m in Sources */,
+				342181701B043CDE00C171D1 /* BSIterator.m in Sources */,
 				34765A1E1AFA84D1005C1A99 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -497,7 +419,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = AsyncTests/Info.plist;
+				INFOPLIST_FILE = Async/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Async.app/Async";
@@ -512,7 +434,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = AsyncTests/Info.plist;
+				INFOPLIST_FILE = Async/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Async.app/Async";

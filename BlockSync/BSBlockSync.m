@@ -6,9 +6,9 @@
 //  Copyright (c) 2015 Ryan Copley. All rights reserved.
 //
 
-#import "BlockSync.h"
+#import "BSBlockSync.h"
 
-@implementation BlockSync
+@implementation BSBlockSync
 
 +(void)waterfall:(NSArray*)calls error:(void (^)())error success:(void (^)())success{
     void (^callback)(void (^insideCB)()) = [calls firstObject];
@@ -26,7 +26,7 @@
     mutableCalls = nil;
     callback(^(id err){
         if (!err){
-            [BlockSync waterfall:calls error: error success:success];
+            [BSBlockSync waterfall:calls error: error success:success];
         }else{
             if (error){
                 error(err);
@@ -36,6 +36,12 @@
 }
 
 +(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
+    if (!array){
+        @throw [NSException exceptionWithName:@"BSEMPTYTASK" reason:@"Your tasks were nil." userInfo:nil];
+    }
+    if ([array isKindOfClass:[NSArray class]] == FALSE){
+        @throw [NSException exceptionWithName:@"BSTASKSMUSTBEARRAY" reason:@"Tasks must be an array." userInfo:nil];
+    }
     
     __block NSUInteger i = 0;
     __block NSUInteger max = array.count;
@@ -48,7 +54,7 @@
     
     for (id obj in array) {
         eachCall(obj, ^(id err){
-                doneCounter();
+            doneCounter();
             if (err && error){
                 error(err, obj);
             }
@@ -56,7 +62,10 @@
     }
 }
 
-+(void)forEach:(NSArray*)array concurrentLimit: (int)concurrentLimit call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
++(void)forEach:(NSArray*)array concurrentLimit: (NSUInteger)concurrentLimit call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
+    if (concurrentLimit == 0){
+        @throw [NSException exceptionWithName:@"BSCONCURRENTLIMITZERO" reason:@"Concurrency limit must be higher than 0." userInfo:nil];
+    }
     
     __block int i = 0;
     __block BOOL hasFinished = NO;
@@ -82,12 +91,12 @@
             }
         }else{
             eachCall(obj, ^(id err){
-                stronglyStartTask();
                 if (err){
                     if (error){
                         error(err, obj);
                     }
                 }
+                stronglyStartTask();
             });
         }
     };
@@ -96,7 +105,6 @@
     for (int j=0;j<concurrentLimit;j++){
         startTask();
     }
-
 }
 
 
