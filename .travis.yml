@@ -4,7 +4,7 @@ xcode_scheme: AsyncTests
 
 install:
     - gem install slather --no-rdoc --no-ri --no-document --quiet
-script: ./test.sh
+script: 
+  - xctool -project Example/Async.xcodeproj -scheme AsyncTests build test -sdk iphonesimulator  GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
   - cd $TRAVIS_BUILD_DIR && slather
-

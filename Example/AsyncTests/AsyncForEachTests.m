@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import <XCTest/XCTest.h>
-#import "BlockSync.h"
+#import "BSBlockSync.h"
 
 @interface AsyncForEachTests : XCTestCase
 
@@ -16,32 +16,25 @@
 
 @implementation AsyncForEachTests
 
-- (void)setUp {
-    [super setUp];
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
+/**
+ *  Standard forEach tests
+ */
 - (void)testForEachSuccess {
     NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
     NSMutableArray* results = [NSMutableArray new];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
     
-    [BlockSync forEach:tests
-        call:^(NSString* thing, void (^insideCB)()){
-            [results addObject:thing];
-            insideCB(nil);
-        }
-        error:^(NSError* err, NSString* failedObject){
-            XCTAssert(NO, @"An error should not occur.");
-        }
-        done:^(){
-            [expectation fulfill];
-        }];
+    [BSBlockSync forEach:tests
+                    call:^(NSString* thing, void (^cb)()){
+                        [results addObject:thing];
+                        cb(nil);
+                    }
+                   error:^(NSError* err, NSString* failedObject){
+                       XCTAssert(NO, @"An error should not occur.");
+                   }
+                    done:^(){
+                        [expectation fulfill];
+                    }];
     
     [self waitForExpectationsWithTimeout:1.0f handler:^(NSError* err){
         if (err){
@@ -52,24 +45,53 @@
     XCTAssert([tests isEqualToArray:results], @"The results should be the same as the input");
 }
 
+- (void)testForEachWithNilTasks {
+    XCTAssertThrowsSpecific([BSBlockSync forEach:nil
+                                            call:^(NSString* thing, void (^cb)()){
+                                                XCTAssert(NO, @"The call block should not occur.");
+                                            }
+                                           error:^(NSError* err, NSString* failedObject){
+                                               XCTAssert(NO, @"An error should not occur.");
+                                           }
+                                            done:^(){
+                                                XCTAssert(NO, @"The done block should not occur.");
+                                            }]
+                            , NSException, @"Should throw an error exception");;
+}
+
+- (void)testForEachWithNonArrayTasks {
+    
+    //Much troll
+    XCTAssertThrowsSpecific([BSBlockSync forEach:(NSArray*)@{}
+                                            call:^(NSString* thing, void (^cb)()){
+                                                XCTAssert(NO, @"The call block should not occur.");
+                                            }
+                                           error:^(NSError* err, NSString* failedObject){
+                                               XCTAssert(NO, @"An error should not occur.");
+                                           }
+                                            done:^(){
+                                                XCTAssert(NO, @"The done block should not occur.");
+                                            }]
+                            , NSException, @"Should throw an error exception");;
+}
+
 - (void)testForEachSomeFailures {
     NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
     
-    NSArray* expectedFailures = @[@"2b", @"4d"];
+    NSArray* expectedFailures = @[@"1a", @"3c"];
     __block NSMutableArray* results = [NSMutableArray new];
     XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
     
     __block int failures = 0;
-    
     __block BOOL shouldFail = NO;
-    [BlockSync forEach:tests
-        call:^(NSString* thing, void (^insideCB)()){
+    [BSBlockSync forEach:tests
+                    call:^(NSString* thing, void (^cb)()){
+                        shouldFail = !shouldFail;
             if (shouldFail){
-                insideCB([NSError new]);
+                cb([NSError new]);
             }else{
-                insideCB(nil);
+                cb(nil);
             }
-            shouldFail = !shouldFail;
         }
         error:^(NSError* err, NSString* failedObject){
             [results addObject:failedObject];
@@ -89,28 +111,97 @@
 
 }
 
-//[BlockSync waterfall:@[
-//    ^(void (^insideCB)(id failure)){
-//        NSLog(@"1");
-//        insideCB(nil);
-//    },
-//    ^(void (^insideCB)(id failure)){
-//        NSLog(@"2");
-//        insideCB(nil);
-//    },
-//    ^(void (^insideCB)(id failure)){
-//        NSLog(@"3");
-//        insideCB(nil);
-//    },
-//    ^(void (^insideCB)(id failure)){
-//        NSLog(@"4");
-//        insideCB(nil);
-//    }
-//]
-//error:^(NSError* err){
-//   NSLog(@"Error");
-//}
-//success:^(){
-//    NSLog(@"Success in waterfall");
-//}];
+/**
+ *  Concurrency tests
+ */
+
+- (void)testForEachWithConcurrentLimitSuccess {
+    NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
+    NSMutableArray* results = [NSMutableArray new];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
+    
+    [BSBlockSync forEach:tests concurrentLimit:2 call:^(NSString* obj, void (^cb)()) {
+        [results addObject:obj];
+        cb(nil);
+    } error:^(id error, id failedObject) {
+        XCTAssert(NO, @"An error should not occur.");
+    } done:^{
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:1.0f handler:^(NSError* err){
+        if (err){
+            XCTAssert(NO, @"We should have fulfilled.");
+        }
+    }];
+    
+    XCTAssert([tests isEqualToArray:results], @"The results should be the same as the input");
+}
+
+- (void)testForEachWithConcurrentLimitWithHigherConcurrentLimitThanTasks {
+    NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
+    NSMutableArray* results = [NSMutableArray new];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
+    
+    [BSBlockSync forEach:tests concurrentLimit:5 call:^(NSString* obj, void (^cb)()) {
+        [results addObject:obj];
+        cb(nil);
+    } error:^(id error, id failedObject) {
+        XCTAssert(NO, @"An error should not occur.");
+    } done:^{
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:1.0f handler:^(NSError* err){
+        if (err){
+            XCTAssert(NO, @"We should have fulfilled.");
+        }
+    }];
+    
+    XCTAssert([tests isEqualToArray:results], @"The results should be the same as the input");
+}
+
+- (void)testForEachWithConcurrentLimitZeroConcurrentLimitThanTasks {
+    NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
+    XCTAssertThrowsSpecific([BSBlockSync forEach:tests concurrentLimit:0 call:^(NSString* obj, void (^cb)()) {
+        XCTAssert(NO, @"The iterator should not run");
+    } error:^(id error, id failedObject) {
+        XCTAssert(NO, @"An error should not occur.");
+    } done:^{
+        XCTAssert(NO, @"The done block should not run");
+    }], NSException, @"Should throw a concurrency error exception");
+}
+
+- (void)testForEachWithConcurrentLimitFailure {
+    NSArray* tests = @[@"1a", @"2b", @"3c", @"4d"];
+    NSMutableArray* results = [NSMutableArray new];
+    XCTestExpectation *expectation = [self expectationWithDescription:@"Done called"];
+    NSArray* expectedFailures = @[@"1a", @"3c"];
+
+    __block int failures = 0;
+    __block BOOL shouldFail = NO;
+    [BSBlockSync forEach:tests concurrentLimit:2 call:^(NSString* obj, void (^cb)()) {
+        shouldFail = !shouldFail;
+        if (shouldFail){
+            cb([NSError new]);
+        }else{
+            cb(nil);
+        }
+    } error:^(id error, id failedObject) {
+        [results addObject:failedObject];
+        failures ++;
+    } done:^{
+        [expectation fulfill];
+    }];
+    
+    [self waitForExpectationsWithTimeout:1.0f handler:^(NSError* err){
+        if (err){
+            XCTAssert(NO, @"We should have fulfilled.");
+        }
+    }];
+    
+    XCTAssertEqual(failures, 2, @"We should have failed twice.");
+    XCTAssert([expectedFailures isEqualToArray:results], @"The failed block should return the failed object.");
+}
+
 @end
