@@ -7,32 +7,48 @@
 //
 
 #import "BSBlockSync.h"
+#include <pthread.h>
 
 @implementation BSBlockSync
 
+/**
+ *  As a precursor to the diagnostic ignores on dispatch_get_current_queue():
+ *  For doing the task we want, we need to use a deprecated function.
+ *  Apple deprecated this because the thread you're currently on "may" be
+ *  a low priority queue, but this is the exact behavior we want.
+ *  BlockSync is designed to *not* interfer with threads, and to return
+ *  and run its block on the queue it was made on. The callbacks themselves
+ *  can dispatch to a different queue if need be.
+ */
+
 +(void)waterfall:(NSArray*)calls error:(void (^)())error success:(void (^)())success{
+    
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    dispatch_queue_t startedOnThread = dispatch_get_current_queue();
+#pragma clang diagnostic pop
+    
     void (^callback)(void (^insideCB)()) = [calls firstObject];
     if (!callback){
         if (success){
             return success();
-        }else{
-            return;
         }
-    }
-    
-    NSMutableArray* mutableCalls = [calls mutableCopy];
-    [mutableCalls removeObject:callback];
-    calls = [NSArray arrayWithArray:mutableCalls];
-    mutableCalls = nil;
-    callback(^(id err){
-        if (!err){
-            [BSBlockSync waterfall:calls error: error success:success];
-        }else{
-            if (error){
-                error(err);
+    }else{
+        NSMutableArray* mutableCalls = [calls mutableCopy];
+        [mutableCalls removeObject:callback];
+        calls = [NSArray arrayWithArray:mutableCalls];
+        mutableCalls = nil;
+        
+        callback(^(id err){
+            if (!err){
+                [BSBlockSync waterfall:calls error: error success:success];
+            }else{
+                if (error){
+                    error(err);
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 +(void)forEach:(NSArray*)array call:(void (^)(id obj, void (^cb)()))eachCall error:(void (^)(id error, id failedObject))error done:(void (^)())done {
@@ -43,13 +59,21 @@
         @throw [NSException exceptionWithName:@"BSTASKSMUSTBEARRAY" reason:@"Tasks must be an array." userInfo:nil];
     }
     
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    //See comments in waterfall:
+    dispatch_queue_t startedOnThread = dispatch_get_current_queue();
+#pragma clang diagnostic pop
+
     __block NSUInteger i = 0;
     __block NSUInteger max = array.count;
     void (^doneCounter)() = ^void() {
-        i++;
-        if (i >= max){
-            done();
-        }
+        dispatch_async(startedOnThread, ^{
+            i++;
+            if (i == max){
+                done();
+            }
+        });
     };
     
     for (id obj in array) {
@@ -67,29 +91,41 @@
         @throw [NSException exceptionWithName:@"BSCONCURRENTLIMITZERO" reason:@"Concurrency limit must be higher than 0." userInfo:nil];
     }
     
-    __block int i = 0;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+    //See comments in forEach:call:error:done:
+    dispatch_queue_t startedOnThread = dispatch_get_current_queue();
+#pragma clang diagnostic pop
+    
+    __block NSUInteger i = 0;
+    __block NSUInteger callbackCount = 0;
+    __block NSUInteger expectedCallbackCount = [array count];
     __block BOOL hasFinished = NO;
+    
     __weak __block void (^weaklyStartTask)() = nil;
      __block void (^startTask)() = ^void(){
         __block void (^stronglyStartTask)() = weaklyStartTask;
         id obj = nil;
-        if (i >= 0 && i < array.count){
+        if (i < array.count){
             obj = [array objectAtIndex:i];
         }
         i++;
         if (!obj){
-            if (!hasFinished){
+            if (!hasFinished && callbackCount == expectedCallbackCount){
                 hasFinished = YES;
                 return done();
             }
         }else{
             eachCall(obj, ^(id err){
+                callbackCount++;
                 if (err){
                     if (error){
                         error(err, obj);
                     }
                 }
-                stronglyStartTask();
+                dispatch_async(startedOnThread, ^{
+                    stronglyStartTask();
+                });
             });
         }
     };
