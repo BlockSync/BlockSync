@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BSIterator : NSObject
+@interface BSForEachIterator : NSObject
+
+-(void)addTask:(id)task;
 
 @end
