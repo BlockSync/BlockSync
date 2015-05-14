@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Ryan Copley. All rights reserved.
 //
 
-#import "BSIterator.h"
+#import "BSForEachIterator.h"
 
-@implementation BSIterator
+@implementation BSForEachIterator
 
 @end
