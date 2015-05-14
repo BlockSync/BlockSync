@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		342181701B043CDE00C171D1 /* BSIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421816F1B043CDE00C171D1 /* BSIterator.m */; };
+		342181701B043CDE00C171D1 /* BSForEachIterator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3421816F1B043CDE00C171D1 /* BSForEachIterator.m */; };
 		343F79DE1AFAB8CA005F1A87 /* BSBlockSync.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */; };
 		343F7A321AFABBEE005F1A87 /* AsyncWaterfallTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 343F7A311AFABBEE005F1A87 /* AsyncWaterfallTests.m */; };
 		34765A1E1AFA84D1005C1A99 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 34765A1D1AFA84D1005C1A99 /* main.m */; };
@@ -29,8 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3421816E1B043CDE00C171D1 /* BSIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSIterator.h; sourceTree = "<group>"; };
-		3421816F1B043CDE00C171D1 /* BSIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSIterator.m; sourceTree = "<group>"; };
+		3421816E1B043CDE00C171D1 /* BSForEachIterator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSForEachIterator.h; sourceTree = "<group>"; };
+		3421816F1B043CDE00C171D1 /* BSForEachIterator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSForEachIterator.m; sourceTree = "<group>"; };
 		343F79DC1AFAB8CA005F1A87 /* BSBlockSync.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BSBlockSync.h; sourceTree = "<group>"; };
 		343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BSBlockSync.m; sourceTree = "<group>"; };
 		343F7A311AFABBEE005F1A87 /* AsyncWaterfallTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AsyncWaterfallTests.m; sourceTree = "<group>"; };
@@ -70,8 +70,8 @@
 			children = (
 				343F79DC1AFAB8CA005F1A87 /* BSBlockSync.h */,
 				343F79DD1AFAB8CA005F1A87 /* BSBlockSync.m */,
-				3421816E1B043CDE00C171D1 /* BSIterator.h */,
-				3421816F1B043CDE00C171D1 /* BSIterator.m */,
+				3421816E1B043CDE00C171D1 /* BSForEachIterator.h */,
+				3421816F1B043CDE00C171D1 /* BSForEachIterator.m */,
 			);
 			name = BlockSync;
 			path = ../BlockSync;
@@ -255,7 +255,7 @@
 			files = (
 				34765A211AFA84D1005C1A99 /* AppDelegate.m in Sources */,
 				343F79DE1AFAB8CA005F1A87 /* BSBlockSync.m in Sources */,
-				342181701B043CDE00C171D1 /* BSIterator.m in Sources */,
+				342181701B043CDE00C171D1 /* BSForEachIterator.m in Sources */,
 				34765A1E1AFA84D1005C1A99 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
