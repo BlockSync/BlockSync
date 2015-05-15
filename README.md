@@ -1,7 +1,7 @@
 #BlockSync
 
 [![Build Status](https://travis-ci.org/BlockSync/BlockSync.svg?branch=master)](https://travis-ci.org/BlockSync/BlockSync)
-[![Coverage Status](https://coveralls.io/repos/BlockSync/BlockSync/badge.svg?branch=master)](https://coveralls.io/r/BlockSync/BlockSync?branch=master)
+[![codecov.io](http://codecov.io/github/BlockSync/BlockSync/coverage.svg?branch=master)](http://codecov.io/github/BlockSync/BlockSync?branch=master)
 
 ###What is BlockSync?
 BlockSync is a library that is intended to make working with blocks easier, quicker to develop, and safer. BlockSync has the following ideals and goals:
