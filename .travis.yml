@@ -1,7 +1,5 @@
 language: objective-c
-xcode_project: Example/Async.xcodeproj
-xcode_scheme: AsyncTests
 script: 
-  - xctool build test -sdk iphonesimulator GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
+  - xctool -project Example/Async.xcodeproj -scheme AsyncTests build test -sdk iphonesimulator  GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
   - bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/gcov/codecov)
