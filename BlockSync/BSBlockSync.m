@@ -7,7 +7,6 @@
 //
 
 #import "BSBlockSync.h"
-#include <pthread.h>
 
 @implementation BSBlockSync
 
