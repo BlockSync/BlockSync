@@ -1,10 +1,7 @@
 language: objective-c
 xcode_project: Example/Async.xcodeproj
 xcode_scheme: AsyncTests
-
-install:
-    - gem install slather --no-rdoc --no-ri --no-document --quiet
 script: 
   - xctool -project Example/Async.xcodeproj -scheme AsyncTests build test -sdk iphonesimulator  GCC_INSTRUMENT_PROGRAM_FLOW_ARCS=YES GCC_GENERATE_TEST_COVERAGE_FILES=YES
 after_success:
-  - cd $TRAVIS_BUILD_DIR && slather
+  - bash <(curl -s https://raw.githubusercontent.com/codecov/codecov-bash/gcov/codecov)
