@@ -13,4 +13,4 @@ Pod::Spec.new do |s|
   s.source_files = "BlockSync/*.{h,m}"
   s.public_header_files = "BlockSync/*.h"
  
-end
+end 
