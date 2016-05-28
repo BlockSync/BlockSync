@@ -26,3 +26,4 @@ BlockSync is a well tested (100% coverage), but is not mature. With time, usage,
 I highly encourage people to open pull requests and to try to break it-- the community is what makes projects great! :)
 
 BlockSync was heavily inspired by [caolan/async](https://github.com/caolan/async). Eventually, BlockSync should implement all functionality of caolan/async, and extend it further.
+
